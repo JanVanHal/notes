@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    
+    <!-- Favicon / Desktop Icon (Yellow Note) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAADPUlEQVR4nO3csW0UURRA0V1ESAcUgIiJiS0KICOmKGIyCkCOiYktCqAD50uALK0sy9he/v/ruecUsDM27+6bGTTe7QAAAAAAAAAANmO/+gSOHX5/Pqw+B+bYv/5yFrO3/CQMPStjWHZgg89tK0J4MfuAu53h524r5mJ6AIaf+8yej6kBGH4eYuacTAvA8PMYs+ZlSgCGn6eYMTdLboLhXAwPwLc/pxg9PzYAaQIgbWgALn/4H0bOkQ1AmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0sYGcH019OOJGDhHNgBpAiBtfAAugzjF4PmxAUibE4AtwFNMmJuXw49w4/pqt3v1dughLr99Hfr5/HXx8dP4g0z60px7CWQT8BAT52T+PYAIuM/k+VhzEywC7rJgLubdA9x288MOvi/gGVj4hbgugBvHP7wYOs7kKmB9AMfO5JfCP2zo3+m8AjjRxYd3q0+BZ8b/BJMmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQNqm3gm+/P5z9SkkbOndaxuANAGQJgDSBECaAEgTAGmbegy6pcdzzGEDkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRA2qbeCfanEefY0rvXNgBpAiBNAKQJgDQBkCYA0jb1GHRLj+eYwwYgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkbeqVyC3/ZTive45hA5AmANIEQJoASBMAaQIgbVOPQT0q5LFsANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaUMD2L/5sR/5+TSMnCMbgDQBkDY8AJdBnGL0/NgApE0JwBbgKWbMzbQNIAIeY9a8TL0EEgEPMXNOpt8DiID7zJ6PJTfBIuAuK+Zi+SAefr0/rD4H1lr5hbg8gGNi6HAVAAAAAAAAAMAYfwDe+4PVypjM+gAAAABJRU5ErkJggg==">
+
+    <!-- PWA Manifest with embedded base64 PNG icons (required for Chrome PWA install icon) -->
+    <script>
+      (function() {
+        var i192 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAADPUlEQVR4nO3csW0UURRA0V1ESAcUgIiJiS0KICOmKGIyCkCOiYktCqAD50uALK0sy9he/v/ruecUsDM27+6bGTTe7QAAAAAAAAAANmO/+gSOHX5/Pqw+B+bYv/5yFrO3/CQMPStjWHZgg89tK0J4MfuAu53h524r5mJ6AIaf+8yej6kBGH4eYuacTAvA8PMYs+ZlSgCGn6eYMTdLboLhXAwPwLc/pxg9PzYAaQIgbWgALn/4H0bOkQ1AmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0sYGcH019OOJGDhHNgBpAiBtfAAugzjF4PmxAUibE4AtwFNMmJuXw49w4/pqt3v1dughLr99Hfr5/HXx8dP4g0z60px7CWQT8BAT52T+PYAIuM/k+VhzEywC7rJgLubdA9x288MOvi/gGVj4hbgugBvHP7wYOs7kKmB9AMfO5JfCP2zo3+m8AjjRxYd3q0+BZ8b/BJMmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQNqm3gm+/P5z9SkkbOndaxuANAGQJgDSBECaAEgTAGmbegy6pcdzzGEDkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRA2qbeCfanEefY0rvXNgBpAiBNAKQJgDQBkCYA0jb1GHRLj+eYwwYgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkbeqVyC3/ZTive45hA5AmANIEQJoASBMAaQIgbVOPQT0q5LFsANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaUMD2L/5sR/5+TSMnCMbgDQBkDY8AJdBnGL0/NgApE0JwBbgKWbMzbQNIAIeY9a8TL0EEgEPMXNOpt8DiID7zJ6PJTfBIuAuK+Zi+SAefr0/rD4H1lr5hbg8gGNi6HAVAAAAAAAAAMAYfwDe+4PVypjM+gAAAABJRU5ErkJggg==";
+        var i512 = "data:image/png;base64,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";
+        var manifest = {
+          name: "Notes",
+          short_name: "Notes",
+          description: "A simple auto-saving notes app",
+          start_url: ".",
+          display: "standalone",
+          background_color: "#f4f3ef",
+          theme_color: "#eae8e2",
+          icons: [
+            { src: i192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+            { src: i512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+          ]
+        };
+        var blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+        var link = document.createElement("link");
+        link.rel  = "manifest";
+        link.href = URL.createObjectURL(blob);
+        document.head.appendChild(link);
+      })();
+    </script>
+    <meta name="theme-color" content="#eae8e2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Notes">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Mapped Design Tokens */
+            --bg:          #f4f3ef;       
+            --surface:     #faf9f6;       
+            --sidebar:     #eae8e2;       
+            --border:      #d9d7cf;       
+            --text:        #3a3832;       
+            --text-muted:  #8c8880;       
+            --blue:        #7a9db8;       
+            --blue-light:  #dde8f0;       
+            --sage:        #8aab96;       
+            --sage-light:  #ddeae3;       
+            --accent:      #7a9db8;       
+            --error:       #c97070;       
+            --radius:      8px;           
+            --shadow:      0 4px 16px rgba(58, 56, 50, 0.08); 
+            
+            --toast-bg:    var(--text);
+            --active-tab:  var(--surface);
+            --tab-hover:   #e0ddd6;
+            --scrollbar:   #ccc9c0;
+        }
+
+        .dark {
+            --bg:          #262520;       
+            --surface:     #2e2c28;       
+            --sidebar:     #1f1e1b;       
+            --border:      #3a3830;       
+            --text:        #e8e4dc;       
+            --text-muted:  #7a7670;       
+            --blue:        #8fb3cc;       
+            --blue-light:  #1e2e3a;
+            --accent:      #8fb3cc;       
+            --shadow:      0 4px 16px rgba(0,0,0,0.25);
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            overflow: hidden;
+            height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ─── Scrollbar ─────────────────────────────── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: var(--radius); }
+
+        /* ─── Sidebar ────────────────────────────────── */
+        aside {
+            width: 260px;
+            flex-shrink: 0;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .sidebar-top { padding: 28px 20px 16px; }
+
+        .app-wordmark {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text);
+            opacity: 0.75;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ─── Notepad Visual Icon in Sidebar ─── */
+        .app-icon-svg {
+            width: 20px;
+            height: 20px;
+            color: var(--blue);
+        }
+
+        .section-label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .add-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--blue);
+            font-size: 20px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: calc(var(--radius) - 2px);
+            transition: background 0.15s, opacity 0.15s;
+            opacity: 0.7;
+        }
+        .add-btn:hover { background: var(--blue-light); opacity: 1; }
+
+        /* ─── Tab List ───────────────────────────────── */
+        #tabsList {
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding: 0 8px;
+        }
+
+        .tab-item {
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            padding: 10px 12px;
+            border-radius: var(--radius);
+            font-size: 13.5px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-muted);
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background 0.15s, color 0.15s, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+        .tab-item:hover { background: var(--tab-hover); color: var(--text); }
+        .tab-item.active {
+            background: var(--active-tab);
+            color: var(--text);
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab-item.dragging { opacity: 0.4; background: var(--tab-hover); }
+        .tab-item.drag-over { border-top: 2px solid var(--blue); }
+
+        .tab-item .tab-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .tab-item.active .tab-dot { opacity: 1; }
+        .tab-item .tab-locked-icon { margin-left: auto; flex-shrink: 0; opacity: 0.4; }
+
+        /* ─── Footer ─────────────────────────────────── */
+        .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+        .footer-actions { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 8px;
+            border-radius: calc(var(--radius) - 2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+            flex: 1;
+        }
+        .icon-btn:hover { background: var(--tab-hover); color: var(--text); }
+
+        .persistence-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+        .persistence-badge::before {
+            content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sage);
+        }
+
+        /* ─── Main Editor ────────────────────────────── */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--surface);
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px 18px; 
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        #tabTitleInput {
+            background: transparent;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            flex-grow: 1;
+        }
+        #tabTitleInput:focus { outline: none; }
+
+        .toolbar-actions { display: flex; align-items: center; gap: 4px; }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 10px;
+            border-radius: calc(var(--radius) - 2px);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: background 0.15s, color 0.15s;
+        }
+        .action-btn:hover { background: var(--blue-light); color: var(--blue); }
+        .action-btn.locked-state { color: var(--sage); }
+        .action-btn.locked-state:hover { background: var(--sage-light); color: var(--sage); }
+        
+        .action-btn.delete-btn:hover { 
+            color: var(--error); 
+            background: rgba(201, 112, 112, 0.1); 
+        }
+
+        #noteArea {
+            min-height: 100%;
+            padding: 40px 40px 80px; 
+            max-width: 900px;
+            margin: 0; 
+            font-size: 16px;
+            line-height: 1.85;
+            color: var(--text);
+            outline: none;
+            transition: max-width 0.3s ease;
+        }
+
+        #noteArea.multi-column {
+            column-count: 2;
+            column-gap: 48px;
+            column-rule: 1px solid var(--border);
+            max-width: 1200px;
+        }
+
+        /* ─── Toast ──────────────────────────────────── */
+        #toast {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: var(--toast-bg);
+            color: var(--surface);
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.25s, transform 0.25s;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        .dark #toast { color: var(--bg); }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="sidebar-top">
+            <div class="app-wordmark">
+                <svg class="app-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>Notes</span>
+            </div>
+            <div class="section-label">
+                <span>Your Notes</span>
+                <button id="addTab" class="add-btn" title="New note">+</button>
+            </div>
+            <nav id="tabsList"></nav>
+        </div>
+        <div class="sidebar-footer">
+            <div class="footer-actions">
+                <button id="importBtn" class="icon-btn" title="Import backup">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                </button>
+                <button id="exportBtn" class="icon-btn" title="Export backup">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </button>
+                <button id="themeToggle" class="icon-btn" title="Toggle theme">
+                    <svg id="sunIcon" class="hidden" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>
+                    <svg id="moonIcon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+            <div class="persistence-badge">Auto-saved</div>
+        </div>
+    </aside>
+
+    <main>
+        <input type="file" id="fileInput" class="hidden" accept=".json">
+        <div class="editor-toolbar">
+            <input id="tabTitleInput" type="text" placeholder="Untitled Note" autocomplete="off" spellcheck="false">
+            <div class="toolbar-actions">
+                <button id="copyBtn" class="action-btn" title="Copy text">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </button>
+                <button id="columnToggle" class="action-btn" title="Change layout">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2zm10 0h-2a2 2 0 00-2 2v12a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2z"/></svg>
+                </button>
+                <button id="lockToggle" class="action-btn" title="Lock/unlock note">
+                    <svg id="lockIcon" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                </button>
+                <button id="deleteTab" class="action-btn delete-btn">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div style="flex-grow:1; overflow-y:auto;">
+            <div id="noteArea" contenteditable="false" data-placeholder="Start writing…"></div>
+        </div>
+    </main>
+
+    <div id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'notes_app_storage_v2';
+        let state = { 
+            activeTabId: null, 
+            tabs: [{ id: Date.now(), title: 'Getting Started', content: '<b>Welcome.</b><br><br>Auto-saved note system.', locked: true, columns: 1 }], 
+            isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches 
+        };
+        
+        const tabsList = document.getElementById('tabsList'), 
+              noteArea = document.getElementById('noteArea'), 
+              tabTitleInput = document.getElementById('tabTitleInput'), 
+              lockToggle = document.getElementById('lockToggle'), 
+              columnToggle = document.getElementById('columnToggle'),
+              themeToggle = document.getElementById('themeToggle'), 
+              toast = document.getElementById('toast');
+
+        // Persistence & Init
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {} }
+        if (!state.activeTabId && state.tabs.length > 0) state.activeTabId = state.tabs[0].id;
+
+        function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+        function showToast(msg) {
+            toast.textContent = msg; toast.style.opacity = '1'; toast.style.transform = 'translateY(-4px)';
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(6px)'; }, 2000);
+        }
+
+        function applyTheme() {
+            document.documentElement.classList.toggle('dark', state.isDarkMode);
+            document.getElementById('sunIcon').classList.toggle('hidden', !state.isDarkMode);
+            document.getElementById('moonIcon').classList.toggle('hidden', state.isDarkMode);
+        }
+
+        function renderTabs() {
+            tabsList.innerHTML = '';
+            state.tabs.forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = 'tab-item' + (tab.id === state.activeTabId ? ' active' : '');
+                btn.innerHTML = `<span class="tab-dot"></span><span>${tab.title || 'Untitled'}</span>`;
+                if(tab.locked) btn.innerHTML += `<span class="tab-locked-icon"><svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></span>`;
+                btn.onclick = () => { state.activeTabId = tab.id; renderEditor(); renderTabs(); saveState(); };
+                tabsList.appendChild(btn);
+            });
+        }
+
+        function renderEditor() {
+            const tab = state.tabs.find(t => t.id === state.activeTabId);
+            if (!tab) {
+                noteArea.innerHTML = '';
+                tabTitleInput.value = '';
+                noteArea.contentEditable = false;
+                return;
+            }
+            noteArea.innerHTML = tab.content || '';
+            tabTitleInput.value = tab.title || '';
+            noteArea.contentEditable = !tab.locked;
+            tabTitleInput.readOnly = tab.locked;
+            lockToggle.classList.toggle('locked-state', tab.locked);
+            lockToggle.title = tab.locked ? 'Unlock note' : 'Lock note';
+            
+            // Handle Columns
+            const isMulti = (tab.columns || 1) === 2;
+            noteArea.classList.toggle('multi-column', isMulti);
+        }
+
+        document.getElementById('addTab').onclick = () => {
+            const newTab = { id: Date.now(), title: '', content: '', locked: false, columns: 1 };
+            state.tabs.push(newTab);
+            state.activeTabId = newTab.id;
+            renderTabs();
+            renderEditor();
+            tabTitleInput.focus();
+            saveState();
+        };
+
+        document.getElementById('deleteTab').onclick = () => {
+            if (state.tabs.length <= 1) {
+                showToast("Can't delete last note");
+                return;
+            }
+            state.tabs = state.tabs.filter(t => t.id !== state.activeTabId);
+            state.activeTabId = state.tabs[0].id;
+            renderTabs();
+            renderEditor();
+            saveState();
+            showToast("Note deleted");
+        };
+
+        columnToggle.onclick = () => {
+            const tab = state.tabs.find(t => t.id === state.activeTabId);
+            if (tab && !tab.locked) {
+                tab.columns = (tab.columns === 1 || !tab.columns) ? 2 : 1;
+                renderEditor();
+                saveState();
+            } else if (tab?.locked) {
+                showToast("Note is locked");
+            }
+        };
+
+        themeToggle.onclick = () => { state.isDarkMode = !state.isDarkMode; applyTheme(); saveState(); };
+        noteArea.oninput = () => { const tab = state.tabs.find(t => t.id === state.activeTabId); if(tab && !tab.locked) { tab.content = noteArea.innerHTML; saveState(); } };
+        tabTitleInput.oninput = (e) => { const tab = state.tabs.find(t => t.id === state.activeTabId); if(tab && !tab.locked) { tab.title = e.target.value; renderTabs(); saveState(); } };
+        lockToggle.onclick = () => { const tab = state.tabs.find(t => t.id === state.activeTabId); if(tab) { tab.locked = !tab.locked; renderEditor(); renderTabs(); saveState(); showToast(tab.locked ? 'Locked' : 'Unlocked'); } };
+        
+        document.getElementById('copyBtn').onclick = () => {
+            const text = noteArea.innerText;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast("Copied to clipboard");
+        };
+
+        document.getElementById('exportBtn').onclick = () => {
+            const data = JSON.stringify(state);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `notes-backup-${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("Backup exported");
+        };
+
+        document.getElementById('importBtn').onclick = () => document.getElementById('fileInput').click();
+        document.getElementById('fileInput').onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    if (imported.tabs) {
+                        state = imported;
+                        applyTheme();
+                        renderTabs();
+                        renderEditor();
+                        saveState();
+                        showToast("Import successful");
+                    }
+                } catch(err) {
+                    showToast("Invalid backup file");
+                }
+            };
+            reader.readAsText(file);
+        };
+
+        applyTheme(); renderTabs(); renderEditor();
+    </script>
+</body>
+</html>
