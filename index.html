@@ -116,7 +116,7 @@
             letter-spacing: -0.01em;
             color: var(--text);
             opacity: 0.75;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -127,36 +127,6 @@
             height: 20px;
             color: var(--blue);
         }
-
-        .section-label {
-            font-size: 9px;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 0 6px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .add-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--blue);
-            font-size: 20px;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: calc(var(--radius) - 2px);
-            transition: background 0.15s, opacity 0.15s;
-            opacity: 0.7;
-        }
-        .add-btn:hover { background: var(--blue-light); opacity: 1; }
 
         /* Tab List */
         #tabsList {
@@ -368,10 +338,6 @@
                 </svg>
                 <span>Notes</span>
             </div>
-            <div class="section-label">
-                <span>Je Notities</span>
-                <button id="addTab" class="add-btn" title="Nieuwe notitie">+</button>
-            </div>
             <nav id="tabsList"></nav>
         </div>
         <div class="sidebar-footer">
@@ -396,6 +362,11 @@
         <div class="editor-toolbar">
             <input id="tabTitleInput" type="text" placeholder="Naamloze notitie" autocomplete="off" spellcheck="false">
             <div class="toolbar-actions">
+                <button id="addTab" class="action-btn" title="Nieuwe notitie">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                </button>
                 <button id="copyBtn" class="action-btn" title="Kopieer tekst">
                     <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 </button>
