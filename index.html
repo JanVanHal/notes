@@ -382,6 +382,69 @@
             .sidebar { width: 0; min-width: 0; border: none; overflow: hidden; }
             #noteArea { padding: 24px 20px 60px; }
         }
+
+        /* ── Confirmation dialog ── */
+        .dialog-overlay {
+            position: fixed; inset: 0;
+            background: var(--modal-overlay);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; transition: opacity 0.15s;
+            pointer-events: none;
+        }
+        .dialog-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .dialog {
+            background: var(--canvas);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow-lg);
+            min-width: 280px;
+            max-width: 360px;
+            transform: scale(0.96) translateY(-4px);
+            transition: transform 0.15s;
+        }
+        .dialog-overlay.visible .dialog {
+            transform: scale(1) translateY(0);
+        }
+        .dialog-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .dialog-body {
+            font-size: 13px;
+            color: var(--ink-light);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+        .btn {
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--ink);
+            transition: background 0.12s, border-color 0.12s;
+        }
+        .btn:hover { background: var(--border); }
+        .btn-danger {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+        }
+        .btn-danger:hover { opacity: 0.88; background: var(--red); }
     </style>
 </head>
 <body>
@@ -451,6 +514,18 @@
         <!-- Editor -->
         <div class="editor-scroll">
             <div id="noteArea" contenteditable="false" data-placeholder="Begin met schrijven…"></div>
+        </div>
+    </div>
+
+    <!-- ── Delete confirmation dialog ── -->
+    <div class="dialog-overlay" id="deleteDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+        <div class="dialog">
+            <div class="dialog-title" id="dialogTitle">Notitie verwijderen?</div>
+            <div class="dialog-body">Deze actie kan niet ongedaan worden gemaakt.</div>
+            <div class="dialog-actions">
+                <button class="btn" id="dialogCancel">Annuleren</button>
+                <button class="btn btn-danger" id="dialogConfirm">Verwijderen</button>
+            </div>
         </div>
     </div>
 
@@ -608,9 +683,37 @@
             saveState();
         };
 
-        // Delete note
+        // Delete note — with Dutch confirmation dialog
+        const deleteDialog  = document.getElementById('deleteDialog');
+        const dialogCancel  = document.getElementById('dialogCancel');
+        const dialogConfirm = document.getElementById('dialogConfirm');
+
+        function openDeleteDialog() {
+            deleteDialog.classList.add('visible');
+            dialogConfirm.focus();
+        }
+
+        function closeDeleteDialog() {
+            deleteDialog.classList.remove('visible');
+        }
+
         document.getElementById('deleteTab').onclick = () => {
             if (state.tabs.length <= 1) return showToast('Kan laatste notitie niet verwijderen');
+            openDeleteDialog();
+        };
+
+        dialogCancel.onclick = closeDeleteDialog;
+
+        deleteDialog.addEventListener('click', e => {
+            if (e.target === deleteDialog) closeDeleteDialog();
+        });
+
+        deleteDialog.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeDeleteDialog();
+        });
+
+        dialogConfirm.onclick = () => {
+            closeDeleteDialog();
             state.tabs = state.tabs.filter(t => t.id !== state.activeTabId);
             state.activeTabId = state.tabs[0].id;
             renderTabs();
