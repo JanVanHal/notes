@@ -2,8 +2,6 @@
 
 A minimal, fast, single-page notes app that lives entirely in your browser — no backend, no account, no sign-up. Open the page and start writing.
 
-**[Try it live →](index.html)**
-
 ## Features
 
 - **Multiple notes** — Create as many notes as you like, listed as tabs in the sidebar. Click a tab to switch between notes.
