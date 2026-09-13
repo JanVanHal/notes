@@ -37,6 +37,10 @@
             --shadow-md:     0 4px 16px rgba(55,53,47,0.10);
             --shadow-lg:     0 8px 32px rgba(55,53,47,0.13);
             --modal-overlay: rgba(55,53,47,0.35);
+
+            /* Typografie variabelen */
+            --font-size-ui:   13px;
+            --font-size-note: 14px;
         }
 
         .medium {
@@ -95,7 +99,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--canvas);
             color: var(--ink);
-            font-size: 14px;
+            font-size: var(--font-size-ui);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             display: flex;
@@ -123,7 +127,6 @@
             padding: 12px 8px 4px;
         }
 
-        /* Workspace row — workspace name + chevron */
         .workspace-row {
             display: flex;
             align-items: center;
@@ -144,15 +147,14 @@
         .workspace-icon svg { color: var(--canvas); }
 
         .workspace-name {
-            font-size: 13px;
+            font-size: calc(var(--font-size-ui) * 1.0);
             font-weight: 600;
             color: var(--ink);
             flex: 1;
         }
 
-        /* Section label inside sidebar */
         .sidebar-section-label {
-            font-size: 11px;
+            font-size: calc(var(--font-size-ui) * 0.85);
             font-weight: 600;
             color: var(--ink-faint);
             text-transform: uppercase;
@@ -161,7 +163,6 @@
             user-select: none;
         }
 
-        /* Notes list */
         .notes-list {
             flex: 1;
             overflow-y: auto;
@@ -178,7 +179,7 @@
             padding: 7px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             color: var(--ink-light);
             transition: background 0.1s, color 0.1s;
             user-select: none;
@@ -203,14 +204,11 @@
         .note-item.active .note-dot { background: var(--accent); }
 
         .note-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
-
         .note-lock-icon { margin-left: auto; flex-shrink: 0; opacity: 0.4; }
 
-        /* Drag states */
         .note-item.dragging { opacity: 0.3; }
         .note-item.drag-over { box-shadow: 0 -2px 0 var(--accent); }
 
-        /* Sidebar footer */
         .sidebar-footer {
             padding: 8px;
             border-top: 1px solid var(--border);
@@ -224,7 +222,7 @@
             align-items: center;
             gap: 6px;
             padding: 4px 8px;
-            font-size: 11px;
+            font-size: calc(var(--font-size-ui) * 0.85);
             color: var(--ink-faint);
             user-select: none;
         }
@@ -235,27 +233,41 @@
             flex-shrink: 0;
         }
 
-        /* ── Icon button (from DESIGN.md) ── */
+        /* ── Icon buttons & UI controls ── */
         .icon-btn {
-            width: 28px; height: 28px;
+            width: calc(var(--font-size-ui) * 2.15);
+            height: calc(var(--font-size-ui) * 2.15);
+            min-width: 24px;
+            min-height: 24px;
             border: none; background: transparent;
             border-radius: 4px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             color: var(--ink-muted);
-            transition: background 0.12s, color 0.12s;
+            transition: background 0.12s, color 0.12s, width 0.12s, height 0.12s;
+            position: relative;
+            flex-shrink: 0;
         }
         .icon-btn:hover { background: var(--border); color: var(--ink); }
+        .icon-btn.active { background: var(--border); color: var(--accent); }
 
-        /* Icon-btn with label */
-        .icon-btn-label {
-            width: auto;
-            padding: 0 8px;
-            gap: 5px;
-            font-size: 11px;
-            font-weight: 500;
+        .topbar .icon-btn svg {
+            width: calc(var(--font-size-ui) * 1.08);
+            height: calc(var(--font-size-ui) * 1.08);
+            transition: width 0.12s, height 0.12s;
         }
 
-        /* Sidebar nav item (for import/export/theme) */
+        #fontSizeDec span {
+            font-size: calc(var(--font-size-ui) * 0.85);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        #fontSizeInc span {
+            font-size: calc(var(--font-size-ui) * 1.15);
+            font-weight: 700;
+            line-height: 1;
+        }
+
         .nav-item {
             display: flex;
             align-items: center;
@@ -263,7 +275,7 @@
             padding: 5px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             color: var(--ink-light);
             transition: background 0.1s, color 0.1s;
             user-select: none;
@@ -283,11 +295,12 @@
             height: 100%;
             background: var(--canvas);
             overflow: hidden;
+            position: relative;
         }
 
-        /* Topbar (from DESIGN.md) */
         .topbar {
-            height: 44px;
+            min-height: 40px;
+            height: calc(var(--font-size-ui) * 3.38);
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -295,6 +308,9 @@
             gap: 8px;
             flex-shrink: 0;
             background: var(--canvas);
+            position: relative;
+            z-index: 10;
+            transition: height 0.12s ease;
         }
 
         .topbar-crumbs {
@@ -302,18 +318,17 @@
             align-items: center;
             gap: 4px;
             flex: 1;
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             min-width: 0;
         }
         .crumb     { color: var(--ink-muted); white-space: nowrap; }
-        .crumb-sep { color: var(--ink-faint); font-size: 12px; }
+        .crumb-sep { color: var(--ink-faint); font-size: calc(var(--font-size-ui) * 0.9); }
 
-        /* Title input in topbar */
         #tabTitleInput {
             background: transparent;
             border: none;
             font-family: inherit;
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             font-weight: 500;
             color: var(--ink);
             outline: none;
@@ -333,7 +348,6 @@
             flex-shrink: 0;
         }
 
-        /* ── Editor area ── */
         .editor-scroll {
             flex: 1;
             overflow-y: auto;
@@ -343,7 +357,7 @@
             min-height: 100%;
             padding: 40px 60px 80px;
             max-width: 760px;
-            font-size: 14px;
+            font-size: var(--font-size-note);
             line-height: 1.85;
             color: var(--ink);
             outline: none;
@@ -361,6 +375,11 @@
             column-gap: 48px;
             column-rule: 1px solid var(--border);
             max-width: 1100px;
+        }
+
+        .font-size-btn {
+            font-family: inherit;
+            user-select: none;
         }
 
         /* ── Toast (from DESIGN.md) ── */
@@ -411,13 +430,13 @@
             transform: scale(1) translateY(0);
         }
         .dialog-title {
-            font-size: 14px;
+            font-size: calc(var(--font-size-ui) * 1.08);
             font-weight: 600;
             color: var(--ink);
             margin-bottom: 6px;
         }
         .dialog-body {
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             color: var(--ink-light);
             margin-bottom: 18px;
             line-height: 1.5;
@@ -430,7 +449,7 @@
         .btn {
             padding: 6px 14px;
             border-radius: 5px;
-            font-size: 13px;
+            font-size: var(--font-size-ui);
             font-weight: 500;
             cursor: pointer;
             border: 1px solid var(--border);
@@ -453,6 +472,9 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="workspace-row">
+                <div class="workspace-icon">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
                 <span class="workspace-name">Notes</span>
             </div>
         </div>
@@ -493,6 +515,12 @@
                 <input id="tabTitleInput" type="text" placeholder="Naamloze notitie" autocomplete="off" spellcheck="false">
             </div>
             <div class="topbar-actions">
+                <button id="fontSizeDec" class="icon-btn font-size-btn" title="Tekst en iconen verkleinen" aria-label="Tekst en iconen verkleinen">
+                    <span>A</span>
+                </button>
+                <button id="fontSizeInc" class="icon-btn font-size-btn" title="Tekst en iconen vergroten" aria-label="Tekst en iconen vergroten">
+                    <span>A</span>
+                </button>
                 <button id="addTab" class="icon-btn" title="Nieuwe notitie">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                 </button>
@@ -536,27 +564,40 @@
 
         let state = {
             activeTabId: null,
-            tabs: [{ id: Date.now(), title: 'Aan de slag', content: '<b>Welkom.</b><br><br>Dit is je automatische notitie-systeem. Je kunt notities verslepen om de volgorde te wijzigen.', locked: true, columns: 1 }]
+            tabs: [{ id: Date.now(), title: 'Aan de slag', content: '<b>Welkom.</b><br><br>Dit is je automatische notitie-systeem. Je kunt notities verslepen om de volgorde te wijzigen.', locked: true, columns: 1 }],
+            fontSize: {
+                ui: 13,
+                note: 14
+            }
         };
 
         let theme = 'light';
         const themeLabels = { light: 'Licht', medium: 'Middel', dark: 'Donker' };
         let draggedTabId = null;
 
-        const tabsList       = document.getElementById('tabsList');
-        const noteArea       = document.getElementById('noteArea');
-        const tabTitleInput  = document.getElementById('tabTitleInput');
-        const lockToggle     = document.getElementById('lockToggle');
-        const columnToggle   = document.getElementById('columnToggle');
-        const themeToggle    = document.getElementById('themeToggle');
-        const toast          = document.getElementById('toast');
+        const tabsList        = document.getElementById('tabsList');
+        const noteArea        = document.getElementById('noteArea');
+        const tabTitleInput   = document.getElementById('tabTitleInput');
+        const lockToggle      = document.getElementById('lockToggle');
+        const columnToggle    = document.getElementById('columnToggle');
+        const themeToggle     = document.getElementById('themeToggle');
+        const toast           = document.getElementById('toast');
+        const fontSizeDec     = document.getElementById('fontSizeDec');
+        const fontSizeInc     = document.getElementById('fontSizeInc');
 
         // Persistence
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
-                if (parsed.tabs) state = { ...state, ...parsed };
+                if (parsed.tabs) state.tabs = parsed.tabs;
+                if (parsed.activeTabId) state.activeTabId = parsed.activeTabId;
+                if (parsed.fontSize) {
+                    state.fontSize = {
+                        ui: Number(parsed.fontSize.ui) || 13,
+                        note: Number(parsed.fontSize.note) || 14
+                    };
+                }
                 if (parsed.theme) theme = parsed.theme;
             } catch(e) {}
         }
@@ -565,6 +606,35 @@
         function saveState() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, theme }));
         }
+
+        const FONT_LIMITS = {
+            ui:   { min: 11, max: 17 },
+            note: { min: 12, max: 22 }
+        };
+
+        function applyFontSizes() {
+            document.documentElement.style.setProperty('--font-size-ui', `${state.fontSize.ui}px`);
+            document.documentElement.style.setProperty('--font-size-note', `${state.fontSize.note}px`);
+        }
+
+        function adjustCombinedFontSize(delta) {
+            const nextUi = Math.min(FONT_LIMITS.ui.max, Math.max(FONT_LIMITS.ui.min, state.fontSize.ui + delta));
+            const nextNote = Math.min(FONT_LIMITS.note.max, Math.max(FONT_LIMITS.note.min, state.fontSize.note + delta));
+
+            if (nextUi === state.fontSize.ui && nextNote === state.fontSize.note) {
+                showToast(delta > 0 ? 'Maximale lettergrootte bereikt' : 'Minimale lettergrootte bereikt');
+                return;
+            }
+
+            state.fontSize.ui = nextUi;
+            state.fontSize.note = nextNote;
+            applyFontSizes();
+            saveState();
+            showToast(`Lettergrootte: ${state.fontSize.note}px`);
+        }
+
+        fontSizeDec.onclick = () => adjustCombinedFontSize(-1);
+        fontSizeInc.onclick = () => adjustCombinedFontSize(1);
 
         // Theme
         function applyTheme() {
@@ -763,7 +833,13 @@
 
         // Export
         document.getElementById('exportBtn').onclick = () => {
-            const blob = new Blob([JSON.stringify({ ...state, theme })], { type: 'application/json' });
+            const exportPayload = {
+                tabs: state.tabs,
+                activeTabId: state.activeTabId,
+                fontSize: state.fontSize,
+                theme
+            };
+            const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.download = `notes-backup-${new Date().toISOString().slice(0,10)}.json`;
@@ -782,9 +858,17 @@
                 try {
                     const imported = JSON.parse(ev.target.result);
                     if (imported.tabs) {
-                        state = imported;
+                        state.tabs = imported.tabs;
+                        if (imported.activeTabId) state.activeTabId = imported.activeTabId;
+                        if (imported.fontSize) {
+                            state.fontSize = {
+                                ui: Number(imported.fontSize.ui) || 13,
+                                note: Number(imported.fontSize.note) || 14
+                            };
+                        }
                         if (imported.theme) theme = imported.theme;
                         applyTheme();
+                        applyFontSizes();
                         renderTabs();
                         renderEditor();
                         saveState();
@@ -797,6 +881,7 @@
 
         // Init
         applyTheme();
+        applyFontSizes();
         renderTabs();
         renderEditor();
     </script>
